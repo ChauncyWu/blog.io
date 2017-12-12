@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            从输入URL到页面渲染完成 | 
+        
+        ChauncyWu&#39;s Blog
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+        <link rel="dns-prefetch" href="https://busuanzi.ibruce.info"/>
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0092f3">
+    <meta name="author" content="ChauncyWu">
+    <meta name="description" itemprop="description" content="ChauncyWu">
+    <meta name="keywords" content=",URL,浏览器,HTTP,服务器,计算机网络">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/cwicon.png">
+    <link rel="icon" sizes="192x192" href="/img/cwicon.png">
+    <link rel="apple-touch-icon" href="/img/cwicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ChauncyWu&#39;s Blog">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://chauncywu.com">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="从输入URL到页面渲染完成 | ChauncyWu&#39;s Blog">
+    <meta property="og:image" content="/img/cwicon.png" />
+    <meta property="og:description" content="ChauncyWu">
+    <meta property="og:article:tag" content="URL"> <meta property="og:article:tag" content="浏览器"> <meta property="og:article:tag" content="HTTP"> <meta property="og:article:tag" content="服务器"> <meta property="og:article:tag" content="计算机网络"> 
+
+    
+        <meta property="article:published_time" content="12月 12, 2017" />
+        <meta property="article:modified_time" content="12月 12, 2017" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="从输入URL到页面渲染完成 | ChauncyWu&#39;s Blog">
+    <meta name="twitter:description" content="ChauncyWu">
+    <meta name="twitter:image" content="/img/cwicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://chauncywu.com" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://chauncywu.com/2017/12/12/从输入URL到页面渲染完成/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "ChauncyWu&#39;s Blog",
+        "logo": "/img/cwicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "ChauncyWu",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/cwicon.png"
+        },
+        "description": "尚有长路待行，在安睡之前。"
+    },
+    "headline": "从输入URL到页面渲染完成",
+    "url": "http://chauncywu.com/2017/12/12/从输入URL到页面渲染完成/index.html",
+    "datePublished": "12月 12, 2017",
+    "dateModified": "12月 12, 2017",
+    "description": "ChauncyWu",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://chauncywu.com"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    .footer-sns-github {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNCA3OGMtNi40IDEuNC0yNi40IDE0LjItMzYgMjIuOC04IDcuMi0yMiAyOS44LTI0LjQgMzkuMi0xLjYgNi40LTIgMTEzLjItMS42IDM2OCAuNiAyOTkuNCAxIDM1OS44IDMuNCAzNjQgMTEgMjAuMiAyMS42IDMyLjQgMzcuMiA0MyAxNS42IDEwLjYgMTcuMiAxMS4yIDM0LjIgMTMuMiAxMC42IDEuMiA2My40IDEuNiAxMjcuNiAxLjRsMTA5LjYtLjYgNi02LjggNi4yLTYuOC0xLjItMjUuMmMtLjgtMTUuOC0uMi0zMy40IDEuNC00Ny4yIDMtMjUuNCAxLjQtMzYuMi02LTQzLjItNS00LjYtNi4yLTQuOC0zMC42LTQuMi0yNy42LjgtMjQgMS42LTY4LjgtMTYtOC42LTMuNC0yMi42LTE4LTI4LjQtMjkuOC0xMS40LTIyLjgtMjctNDUtMzkuMi01NS42LTE0LTEyLjItMTkuOC0yMC44LTE5LjgtMjguNiAwLTExLjYgMTMuNi0xMi42IDMzLjItMi40IDE2LjYgOC44IDIwLjggMTIuNCA0MC44IDM2LjIgMjQuMiAyOC42IDMxIDMzLjYgNTQgMzkuNiAxNS4yIDQgNDIuMiAzIDUxLjQtMS44IDktNC42IDE4LTE1LjIgMjQuNC0yOS4yIDExLjQtMjQuMiA3LjQtMzEuMi0yMC42LTM2LjgtOS44LTItMjkuMi04LTQzLjQtMTMuNC00MC40LTE1LjgtNjQuNi0zNy40LTg1LjQtNzYuMi0xMS42LTIxLjgtMTUuNC0zMy0xOC4yLTUzLjYtNC4yLTMyLjItNC44LTYwLjItMS40LTg0IDMuNC0yMy44IDYuOC0zMi44IDIwLjItNTQgNC02IDguOC0xNS42IDExLTIxLjQgMy44LTEwIDMuOC0xMS42IDEtMzAtNS4yLTM0LjItMy4yLTUyLjQgNy42LTcwLjIgNy4yLTEyLjIgMTUtMTcuMiAyNC4yLTE1LjggMTIuOCAyLjIgNTIgMTcuNCA2Ni44IDI2LjIgMjYgMTUgMjkgMTUuNCA4Mi40IDcuMiAyNC42LTMuOCAzMy44LTQuMiA2MC0zLjIgMTcgLjYgNDEuNCAzIDU0IDUuMiAzOC40IDYuNiA0OS42IDUuMiA3My0xMCA2LjYtNC4yIDE3LjQtOS40IDI0LTExLjYgNi42LTIuMiAxNi01LjggMjEtOC4yIDEzLTYgMjgtNS42IDM1LjYuOCAxMi40IDEwLjQgMTguNiA0MS40IDE0LjQgNzEuNi00LjQgMzAuNi0zIDM5LjQgOC40IDUzLjggMy40IDQuNCAxMS4yIDE5LjIgMTcuNCAzMy4yTDc3NSA0NDN2NzhsLTEwIDI4Yy0xNS4yIDQzLjItMzYuOCA3My4yLTY2LjIgOTIuOC0xMy40IDguOC01NyAyNS40LTc2LjggMjktMjguMiA1LjItMzMuMiAxMi42LTIyIDMyLjIgMTEuMiAxOS40IDEyLjQgMzIuOCAxMS42IDEyOS42bC0uNiA4NS44IDUuNCA0LjZjMy42IDMgOS4yIDUuMiAxNiA2IDUuOC44IDYwLjIgMSAxMjAuNi42IDEwOC40LS42IDExMC4yLS42IDExOS01IDI0LTExLjYgNDAtMjcuNCA1MS42LTUwLjZsNS40LTExIC42LTM0N2MuNC0yMjMtLjItMzUzLjQtMS40LTM2NS0yLTE3LTIuNi0xOC42LTEzLTM0LTEwLjYtMTUuNC0yMi44LTI2LjItNDMuMi0zNy4yLTQuMi0yLjQtNjQuNi0yLjgtMzY2LTMuMi0xOTguNiAwLTM2NCAuNC0zNjcuNiAxLjR6Ii8+PC9zdmc+);
+    }
+    
+    
+    
+    .footer-sns-zhihu {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzYuOCA3OC44Yy04LjYgMi44LTI0IDEyLjQtMzMuNiAyMS04LjYgNy44LTIxLjQgMjcuOC0yNC40IDM3LjgtNC4yIDE0LTQgNzIzLjQgMCA3MzMuNCA4LjYgMjAuNiAzNi44IDQ4LjYgNTYgNTUuNiA5IDMuNCA3NDcuNCAzLjQgNzU2LjQgMCAxOS44LTcuMiA0OS0zNi42IDU2LTU2LjIgMi4yLTYgMi42LTc1LjYgMi44LTM2Ni40IDAtMjMzLjgtLjYtMzYxLjQtMi0zNjYtMS4yLTMuOC02LjYtMTMuOC0xMi4yLTIyLjItOC4yLTEyLjItMTMuNC0xNy40LTI1LjgtMjUuNi04LjQtNS44LTE5LTExLjQtMjMuMi0xMi4yLTQuNi0xLjItMTYzLjItMS44LTM3NC44LTEuOC0yOTMgMC0zNjguNi42LTM3NS4yIDIuNnptMTkwIDE0NS42YzUuNCA3LjYgNCAxNy40LTQuOCAzMS42LTkuOCAxNi0xMC44IDI3LjQtMyAzNSAyLjYgMi44IDYuNCA1IDguNCA1czM3LjguNCA3OS42LjZjNjggLjQgNzYuNi44IDgyLjQgMy44IDkuMiA1IDEyLjYgMTEgMTIuNiAyMiAwIDctMS4yIDEwLjgtNC44IDE1bC00LjggNS40LTM4IC4yYy01My44IDAtNTMuOCAwLTU1LjQgNTEuMi0uNiAxOC0xLjYgNDIuOC0yLjIgNTUtMS4yIDIyLjguNiAzMS42IDcuNiAzNi4yIDEuNC44IDIyLjIgMiA0NiAyLjZsNDMuMiAxIDguOCA2YzE1LjQgMTAuOCAxNy44IDI5LjIgNSAzNy01LjggMy42LTEwLjIgNC01MS44IDQtMzEgMC00NyAuOC01MC42IDIuNC03IDMuMi0xNC4yIDE3LjYtMTcuMiAzNC40LTMuMiAxNi42LTEgMjEuOCA5LjYgMjUuMiAxMy40IDQuMiAyMS44IDExLjIgNDkgNDEuNCAzNSAzOC44IDM2LjYgNDEgNDEuOCA1OC44IDcgMjMuOCAyLjIgNDEuOC0xMS40IDQxLjgtNy42IDAtMTItMy0yMS0xNC42LTEzLjgtMTcuNC01NC40LTY1LjgtNjItNzMuOC0xNS4yLTE2LTI5LjQtNS44LTM4LjggMjcuNC0xLjggNi42LTguOCAyMy4yLTE1LjYgMzctMTAuOCAyMi0xNCAyNi44LTI3LjQgMzkuNi0xOS42IDE5LjItMjYuNCAyMy01My42IDI5LjYtMjcuMiA2LjQtMzcgNS42LTM4LTMuNi0xLTguNCA0LjQtMTYuNCAyMC0yOSAxNi0xMyAzNi44LTM2LjYgNDUuMi01MS40IDMtNS4yIDguMi0xMy44IDExLjYtMTkgMy40LTUgMTEuOC0yMC40IDE4LjYtMzQuMiAxMC0yMCAxMy42LTI5LjQgMTcuMi00NyAyLjYtMTIuMiA2LjItMjUuNCA3LjgtMjkuNCA0LTkuNCA0LTIxLjQuMi0yNy01LjItNy40LTE2LTguOC02Mi42LTguNC01MC40LjQtNTUuMi0uOC01Ny42LTEzLjItMS44LTEwLjQgNS44LTI0LjQgMTYuMi0yOS44IDcuNC0zLjggMTEuOC00LjIgNTYuMi00LjhsNDguNC0uOCA0LjYtNWM0LjgtNSA0LjgtNSA1LTYxLjYgMC0zNS4yLS44LTU5LjItMi02My4yLTMuOC0xMS4yLTExLTE0LjgtMzAuMi0xNC44cy0yMS40IDEuNC0zMS4yIDE4LjJjLTguMiAxNC40LTIwLjYgMjguOC0zMy4yIDM4LjgtMTMuMiAxMC40LTIxLjYgMTMtMjggOS04LjQtNS42LTUuMi0yMy4yIDguMi00My4yIDQtNi40IDkuMi0xOC42IDEyLjItMjkuNiAzLTEwLjIgNy40LTIzLjIgMTAtMjkgMi40LTUuNiA2LTE2LjggOC0yNC42IDUuNi0yMy42IDI0LTUwLjggMzkuNC01OC40IDExLjItNS40IDE4LjYtNS40IDIyLjQuMnptNDUyIDY4LjJjMTEuOCA3LjggMTEuNC0uOCAxMC44IDIxNi0uNiAxODEtLjggMTk4LjgtNCAyMDMtNy42IDEwLjgtOS44IDExLjQtNTMuNiAxMi40bC00MSAxLTE0IDcuOGMtNy42IDQuMi0yMS4yIDEzLTI5LjggMTkuNC0yNS44IDE5LjItMzUgMTkuOC00My40IDMuMi0xMS44LTIzLjItMjMuNi0zMy4yLTM5LjQtMzMuNC04LjggMC0xMy42LTIuOC0xNy4yLTkuOC0yLjYtNC44LTMtMzMuOC0yLjYtMjA4LjguNC0xOTkuOC40LTIwMyA0LjQtMjA3LjQgMi4yLTIuNCA1LjgtNS4yIDgtNi4yIDIuMi0uOCA1MS44LTEuNCAxMTAtMS4yIDk5IC40IDEwNi42LjYgMTExLjggNHoiLz48cGF0aCBkPSJNNjA2LjggMzM3LjRjLTIuNC40LTYuNCAzLTkgNS44bC00LjggNS4yLS42IDE1Ni40LS40IDE1Ni40IDYuNCA5LjRjMy42IDUuMiA5LjggMTUuMiAxMy42IDIxLjggOCAxNC4yIDE2LjggMjAuNiAyNS42IDE4LjYgMy4yLS42IDEzLjgtNyAyMy42LTE0LjIgMjMtMTcgMjcuOC0xOSA1MC4yLTIwLjIgMTYuNC0xIDE5LjItMS44IDIzLjYtNi4yIDIuOC0yLjggNS02LjQgNS4yLTguMlY1MDUuNmMwLTExNi0uNi0xNTQuNC0yLjYtMTU4LjYtNC44LTEwLjQtOC40LTExLTcwLTEwLjgtMzEuMi4yLTU4LjYuOC02MC44IDEuMnoiLz48L3N2Zz4=);
+    }
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #0092f3;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0092f3 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0092f3 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0092f3 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #0092f3;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#从输入URL到页面渲染完成"><span class="post-toc-number">1.</span> <span class="post-toc-text"><a href="#&#x4ECE;&#x8F93;&#x5165;URL&#x5230;&#x9875;&#x9762;&#x6E32;&#x67D3;&#x5B8C;&#x6210;" class="headerlink" title="&#x4ECE;&#x8F93;&#x5165;URL&#x5230;&#x9875;&#x9762;&#x6E32;&#x67D3;&#x5B8C;&#x6210;"></a>&#x4ECE;&#x8F93;&#x5165;URL&#x5230;&#x9875;&#x9762;&#x6E32;&#x67D3;&#x5B8C;&#x6210;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#各种协议与HTTP协议的关系-参照该图理解下文"><span class="post-toc-number">1.1.</span> <span class="post-toc-text"><a href="#&#x5404;&#x79CD;&#x534F;&#x8BAE;&#x4E0E;HTTP&#x534F;&#x8BAE;&#x7684;&#x5173;&#x7CFB;-&#x53C2;&#x7167;&#x8BE5;&#x56FE;&#x7406;&#x89E3;&#x4E0B;&#x6587;" class="headerlink" title="&#x5404;&#x79CD;&#x534F;&#x8BAE;&#x4E0E;HTTP&#x534F;&#x8BAE;&#x7684;&#x5173;&#x7CFB;(&#x53C2;&#x7167;&#x8BE5;&#x56FE;&#x7406;&#x89E3;&#x4E0B;&#x6587;)"></a>&#x5404;&#x79CD;&#x534F;&#x8BAE;&#x4E0E;HTTP&#x534F;&#x8BAE;&#x7684;&#x5173;&#x7CFB;(&#x53C2;&#x7167;&#x8BE5;&#x56FE;&#x7406;&#x89E3;&#x4E0B;&#x6587;)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-输入URL地址"><span class="post-toc-number">1.2.</span> <span class="post-toc-text"><a href="#1-&#x8F93;&#x5165;URL&#x5730;&#x5740;" class="headerlink" title="1. &#x8F93;&#x5165;URL&#x5730;&#x5740;"></a>1. &#x8F93;&#x5165;URL&#x5730;&#x5740;</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-浏览器根据域名查询IP地址"><span class="post-toc-number">1.3.</span> <span class="post-toc-text"><a href="#2-&#x6D4F;&#x89C8;&#x5668;&#x6839;&#x636E;&#x57DF;&#x540D;&#x67E5;&#x8BE2;IP&#x5730;&#x5740;" class="headerlink" title="2. &#x6D4F;&#x89C8;&#x5668;&#x6839;&#x636E;&#x57DF;&#x540D;&#x67E5;&#x8BE2;IP&#x5730;&#x5740;"></a>2. &#x6D4F;&#x89C8;&#x5668;&#x6839;&#x636E;&#x57DF;&#x540D;&#x67E5;&#x8BE2;IP&#x5730;&#x5740;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#扩展"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text"><a href="#&#x6269;&#x5C55;" class="headerlink" title="&#x6269;&#x5C55;"></a>&#x6269;&#x5C55;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么是DNS？"><span class="post-toc-number">1.3.1.1.</span> <span class="post-toc-text"><a href="#&#x4EC0;&#x4E48;&#x662F;DNS&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;DNS&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F;DNS&#xFF1F;</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DNS查询的两种方式：递归查询和迭代查询"><span class="post-toc-number">1.3.1.2.</span> <span class="post-toc-text"><a href="#DNS&#x67E5;&#x8BE2;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x9012;&#x5F52;&#x67E5;&#x8BE2;&#x548C;&#x8FED;&#x4EE3;&#x67E5;&#x8BE2;" class="headerlink" title="DNS&#x67E5;&#x8BE2;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x9012;&#x5F52;&#x67E5;&#x8BE2;&#x548C;&#x8FED;&#x4EE3;&#x67E5;&#x8BE2;"></a>DNS&#x67E5;&#x8BE2;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x9012;&#x5F52;&#x67E5;&#x8BE2;&#x548C;&#x8FED;&#x4EE3;&#x67E5;&#x8BE2;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1、递归解析"><span class="post-toc-number">1.3.1.2.1.</span> <span class="post-toc-text"><a href="#1&#x3001;&#x9012;&#x5F52;&#x89E3;&#x6790;" class="headerlink" title="1&#x3001;&#x9012;&#x5F52;&#x89E3;&#x6790;"></a>1&#x3001;&#x9012;&#x5F52;&#x89E3;&#x6790;</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2、迭代解析"><span class="post-toc-number">1.3.1.2.2.</span> <span class="post-toc-text"><a href="#2&#x3001;&#x8FED;&#x4EE3;&#x89E3;&#x6790;" class="headerlink" title="2&#x3001;&#x8FED;&#x4EE3;&#x89E3;&#x6790;"></a>2&#x3001;&#x8FED;&#x4EE3;&#x89E3;&#x6790;</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DNS域名称空间的组织方式"><span class="post-toc-number">1.3.1.3.</span> <span class="post-toc-text"><a href="#DNS&#x57DF;&#x540D;&#x79F0;&#x7A7A;&#x95F4;&#x7684;&#x7EC4;&#x7EC7;&#x65B9;&#x5F0F;" class="headerlink" title="DNS&#x57DF;&#x540D;&#x79F0;&#x7A7A;&#x95F4;&#x7684;&#x7EC4;&#x7EC7;&#x65B9;&#x5F0F;"></a>DNS&#x57DF;&#x540D;&#x79F0;&#x7A7A;&#x95F4;&#x7684;&#x7EC4;&#x7EC7;&#x65B9;&#x5F0F;</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-浏览器发送HTTP请求到web服务器"><span class="post-toc-number">1.4.</span> <span class="post-toc-text"><a href="#3-&#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;HTTP&#x8BF7;&#x6C42;&#x5230;web&#x670D;&#x52A1;&#x5668;" class="headerlink" title="3. &#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;HTTP&#x8BF7;&#x6C42;&#x5230;web&#x670D;&#x52A1;&#x5668;"></a>3. &#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;HTTP&#x8BF7;&#x6C42;&#x5230;web&#x670D;&#x52A1;&#x5668;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTTP请求报文"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text"><a href="#HTTP&#x8BF7;&#x6C42;&#x62A5;&#x6587;" class="headerlink" title="HTTP&#x8BF7;&#x6C42;&#x62A5;&#x6587;"></a>HTTP&#x8BF7;&#x6C42;&#x62A5;&#x6587;</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#确保可靠性的TCP协议"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text"><a href="#&#x786E;&#x4FDD;&#x53EF;&#x9760;&#x6027;&#x7684;TCP&#x534F;&#x8BAE;" class="headerlink" title="&#x786E;&#x4FDD;&#x53EF;&#x9760;&#x6027;&#x7684;TCP&#x534F;&#x8BAE;"></a>&#x786E;&#x4FDD;&#x53EF;&#x9760;&#x6027;&#x7684;TCP&#x534F;&#x8BAE;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#扩展-1"><span class="post-toc-number">1.4.2.1.</span> <span class="post-toc-text"><a href="#&#x6269;&#x5C55;-1" class="headerlink" title="&#x6269;&#x5C55;"></a>&#x6269;&#x5C55;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#TCP三次握手"><span class="post-toc-number">1.4.2.1.1.</span> <span class="post-toc-text"><a href="#TCP&#x4E09;&#x6B21;&#x63E1;&#x624B;" class="headerlink" title="TCP&#x4E09;&#x6B21;&#x63E1;&#x624B;"></a>TCP&#x4E09;&#x6B21;&#x63E1;&#x624B;</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#为什需要三次握手？"><span class="post-toc-number">1.4.2.1.2.</span> <span class="post-toc-text"><a href="#&#x4E3A;&#x4EC0;&#x9700;&#x8981;&#x4E09;&#x6B21;&#x63E1;&#x624B;&#xFF1F;" class="headerlink" title="&#x4E3A;&#x4EC0;&#x9700;&#x8981;&#x4E09;&#x6B21;&#x63E1;&#x624B;&#xFF1F;"></a>&#x4E3A;&#x4EC0;&#x9700;&#x8981;&#x4E09;&#x6B21;&#x63E1;&#x624B;&#xFF1F;</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#TCP四次挥手"><span class="post-toc-number">1.4.2.1.3.</span> <span class="post-toc-text"><a href="#TCP&#x56DB;&#x6B21;&#x6325;&#x624B;" class="headerlink" title="TCP&#x56DB;&#x6B21;&#x6325;&#x624B;"></a>TCP&#x56DB;&#x6B21;&#x6325;&#x624B;</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"><span class="post-toc-number">1.4.2.1.4.</span> <span class="post-toc-text"><a href="#&#x4E3A;&#x4EC0;&#x4E48;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#x662F;&#x4E09;&#x6B21;&#x63E1;&#x624B;&#xFF0C;&#x800C;&#x5173;&#x95ED;&#x8FDE;&#x63A5;&#x5374;&#x662F;&#x56DB;&#x6B21;&#x6325;&#x624B;&#x5462;&#xFF1F;" class="headerlink" title="&#x4E3A;&#x4EC0;&#x4E48;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#x662F;&#x4E09;&#x6B21;&#x63E1;&#x624B;&#xFF0C;&#x800C;&#x5173;&#x95ED;&#x8FDE;&#x63A5;&#x5374;&#x662F;&#x56DB;&#x6B21;&#x6325;&#x624B;&#x5462;&#xFF1F;"></a>&#x4E3A;&#x4EC0;&#x4E48;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#x662F;&#x4E09;&#x6B21;&#x63E1;&#x624B;&#xFF0C;&#x800C;&#x5173;&#x95ED;&#x8FDE;&#x63A5;&#x5374;&#x662F;&#x56DB;&#x6B21;&#x6325;&#x624B;&#x5462;&#xFF1F;</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#什么是反向代理？"><span class="post-toc-number">1.4.2.1.5.</span> <span class="post-toc-text"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#xFF1F;</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#负责传输的IP协议"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text"><a href="#&#x8D1F;&#x8D23;&#x4F20;&#x8F93;&#x7684;IP&#x534F;&#x8BAE;" class="headerlink" title="&#x8D1F;&#x8D23;&#x4F20;&#x8F93;&#x7684;IP&#x534F;&#x8BAE;"></a>&#x8D1F;&#x8D23;&#x4F20;&#x8F93;&#x7684;IP&#x534F;&#x8BAE;</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-Facebook服务器返回一个永久重定向响应"><span class="post-toc-number">1.5.</span> <span class="post-toc-text"><a href="#4-Facebook&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6C38;&#x4E45;&#x91CD;&#x5B9A;&#x5411;&#x54CD;&#x5E94;" class="headerlink" title="4. Facebook&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6C38;&#x4E45;&#x91CD;&#x5B9A;&#x5411;&#x54CD;&#x5E94;"></a>4. Facebook&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6C38;&#x4E45;&#x91CD;&#x5B9A;&#x5411;&#x54CD;&#x5E94;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#扩展-2"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text"><a href="#&#x6269;&#x5C55;-2" class="headerlink" title="&#x6269;&#x5C55;"></a>&#x6269;&#x5C55;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#301和302的区别："><span class="post-toc-number">1.5.1.1.</span> <span class="post-toc-text"><a href="#301&#x548C;302&#x7684;&#x533A;&#x522B;&#xFF1A;" class="headerlink" title="301&#x548C;302&#x7684;&#x533A;&#x522B;&#xFF1A;"></a>301&#x548C;302&#x7684;&#x533A;&#x522B;&#xFF1A;</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#重定向原因："><span class="post-toc-number">1.5.1.2.</span> <span class="post-toc-text"><a href="#&#x91CD;&#x5B9A;&#x5411;&#x539F;&#x56E0;&#xFF1A;" class="headerlink" title="&#x91CD;&#x5B9A;&#x5411;&#x539F;&#x56E0;&#xFF1A;"></a>&#x91CD;&#x5B9A;&#x5411;&#x539F;&#x56E0;&#xFF1A;</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么时候进行301或者302跳转呢？"><span class="post-toc-number">1.5.1.3.</span> <span class="post-toc-text"><a href="#&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x8FDB;&#x884C;301&#x6216;&#x8005;302&#x8DF3;&#x8F6C;&#x5462;&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x8FDB;&#x884C;301&#x6216;&#x8005;302&#x8DF3;&#x8F6C;&#x5462;&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x8FDB;&#x884C;301&#x6216;&#x8005;302&#x8DF3;&#x8F6C;&#x5462;&#xFF1F;</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-浏览器会跟踪重定向地址"><span class="post-toc-number">1.6.</span> <span class="post-toc-text"><a href="#5-&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x8DDF;&#x8E2A;&#x91CD;&#x5B9A;&#x5411;&#x5730;&#x5740;" class="headerlink" title="5. &#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x8DDF;&#x8E2A;&#x91CD;&#x5B9A;&#x5411;&#x5730;&#x5740;"></a>5. &#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x8DDF;&#x8E2A;&#x91CD;&#x5B9A;&#x5411;&#x5730;&#x5740;</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-服务器处理请求"><span class="post-toc-number">1.7.</span> <span class="post-toc-text"><a href="#6-&#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x8BF7;&#x6C42;" class="headerlink" title="6. &#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x8BF7;&#x6C42;"></a>6. &#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x8BF7;&#x6C42;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#怎么存储数据是每个动态网站都会面临的有趣难题"><span class="post-toc-number">1.7.1.</span> <span class="post-toc-text"><a href="#&#x600E;&#x4E48;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x662F;&#x6BCF;&#x4E2A;&#x52A8;&#x6001;&#x7F51;&#x7AD9;&#x90FD;&#x4F1A;&#x9762;&#x4E34;&#x7684;&#x6709;&#x8DA3;&#x96BE;&#x9898;" class="headerlink" title="&#x600E;&#x4E48;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x662F;&#x6BCF;&#x4E2A;&#x52A8;&#x6001;&#x7F51;&#x7AD9;&#x90FD;&#x4F1A;&#x9762;&#x4E34;&#x7684;&#x6709;&#x8DA3;&#x96BE;&#x9898;"></a>&#x600E;&#x4E48;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x662F;&#x6BCF;&#x4E2A;&#x52A8;&#x6001;&#x7F51;&#x7AD9;&#x90FD;&#x4F1A;&#x9762;&#x4E34;&#x7684;&#x6709;&#x8DA3;&#x96BE;&#x9898;</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#推迟一些任务到批处理作业是廉价保持数据更新的的一种技术。"><span class="post-toc-number">1.7.2.</span> <span class="post-toc-text"><a href="#&#x63A8;&#x8FDF;&#x4E00;&#x4E9B;&#x4EFB;&#x52A1;&#x5230;&#x6279;&#x5904;&#x7406;&#x4F5C;&#x4E1A;&#x662F;&#x5EC9;&#x4EF7;&#x4FDD;&#x6301;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x7684;&#x7684;&#x4E00;&#x79CD;&#x6280;&#x672F;&#x3002;" class="headerlink" title="&#x63A8;&#x8FDF;&#x4E00;&#x4E9B;&#x4EFB;&#x52A1;&#x5230;&#x6279;&#x5904;&#x7406;&#x4F5C;&#x4E1A;&#x662F;&#x5EC9;&#x4EF7;&#x4FDD;&#x6301;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x7684;&#x7684;&#x4E00;&#x79CD;&#x6280;&#x672F;&#x3002;"></a>&#x63A8;&#x8FDF;&#x4E00;&#x4E9B;&#x4EFB;&#x52A1;&#x5230;&#x6279;&#x5904;&#x7406;&#x4F5C;&#x4E1A;&#x662F;&#x5EC9;&#x4EF7;&#x4FDD;&#x6301;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x7684;&#x7684;&#x4E00;&#x79CD;&#x6280;&#x672F;&#x3002;</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-服务器返回一个HTML响应"><span class="post-toc-number">1.8.</span> <span class="post-toc-text"><a href="#7-&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;HTML&#x54CD;&#x5E94;" class="headerlink" title="7.&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;HTML&#x54CD;&#x5E94;"></a>7.&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;HTML&#x54CD;&#x5E94;</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-浏览器开始渲染HTML"><span class="post-toc-number">1.9.</span> <span class="post-toc-text"><a href="#8-&#x6D4F;&#x89C8;&#x5668;&#x5F00;&#x59CB;&#x6E32;&#x67D3;HTML" class="headerlink" title="8. &#x6D4F;&#x89C8;&#x5668;&#x5F00;&#x59CB;&#x6E32;&#x67D3;HTML"></a>8. &#x6D4F;&#x89C8;&#x5668;&#x5F00;&#x59CB;&#x6E32;&#x67D3;HTML</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-浏览器发送嵌入在HTML中的对象的请求"><span class="post-toc-number">1.10.</span> <span class="post-toc-text"><a href="#9-&#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;&#x5D4C;&#x5165;&#x5728;HTML&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x8BF7;&#x6C42;" class="headerlink" title="9. &#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;&#x5D4C;&#x5165;&#x5728;HTML&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x8BF7;&#x6C42;"></a>9. &#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;&#x5D4C;&#x5165;&#x5728;HTML&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x8BF7;&#x6C42;</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-浏览器发送异步请求"><span class="post-toc-number">1.11.</span> <span class="post-toc-text"><a href="#10-&#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;&#x5F02;&#x6B65;&#x8BF7;&#x6C42;" class="headerlink" title="10. &#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;&#x5F02;&#x6B65;&#x8BF7;&#x6C42;"></a>10. &#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;&#x5F02;&#x6B65;&#x8BF7;&#x6C42;</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#相关阅读："><span class="post-toc-number">1.12.</span> <span class="post-toc-text"><a href="#&#x76F8;&#x5173;&#x9605;&#x8BFB;&#xFF1A;" class="headerlink" title="&#x76F8;&#x5173;&#x9605;&#x8BFB;&#xFF1A;"></a>&#x76F8;&#x5173;&#x9605;&#x8BFB;&#xFF1A;</span></a></li></ol></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                从输入URL到页面渲染完成
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/cwavatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>ChauncyWu</strong>
+        <span>12月 12, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/HTTP/">HTTP</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/URL/">URL</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/服务器/">服务器</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/浏览器/">浏览器</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/计算机网络/">计算机网络</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=从输入URL到页面渲染完成&url=http://chauncywu.com/2017/12/12/从输入URL到页面渲染完成/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=ChauncyWu&#39;s Blog&title=从输入URL到页面渲染完成&summary=ChauncyWu&pics=http://chauncywu.com/img/cwicon.png&url=http://chauncywu.com/2017/12/12/从输入URL到页面渲染完成/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="从输入URL到页面渲染完成"><a href="#从输入URL到页面渲染完成" class="headerlink" title="从输入URL到页面渲染完成"></a>从输入URL到页面渲染完成</h1><p><a href="http://igoro.com/archive/what-really-happens-when-you-navigate-to-a-url/" target="_blank" rel="noopener">原文-英文</a><br><a href="http://blog.csdn.net/allenliu6/article/details/70313492" target="_blank" rel="noopener">译文</a></p>
+<blockquote>
+<p>推荐阅读《图解HTTP》</p>
+</blockquote>
+<h2 id="各种协议与HTTP协议的关系-参照该图理解下文"><a href="#各种协议与HTTP协议的关系-参照该图理解下文" class="headerlink" title="各种协议与HTTP协议的关系(参照该图理解下文)"></a>各种协议与HTTP协议的关系(参照该图理解下文)</h2><p><img src="0-1.png" alt="0-1"></p>
+<h2 id="1-输入URL地址"><a href="#1-输入URL地址" class="headerlink" title="1. 输入URL地址"></a>1. 输入URL地址</h2><p><img src="1-1.png" alt="1-1"></p>
+<h2 id="2-浏览器根据域名查询IP地址"><a href="#2-浏览器根据域名查询IP地址" class="headerlink" title="2. 浏览器根据域名查询IP地址"></a>2. 浏览器根据域名查询IP地址</h2><p><img src="2-1.png" alt="2-1"></p>
+<p>从要访问的域名中获取IP地址，DNS查询的步骤如下：</p>
+<ol>
+<li>从浏览器缓存中查询。浏览器会存储一定时间的DNS记录，操作系统不会告诉浏览器每个DNS记录的保存时限，不同浏览器设置保存时限为一个固定值（不同浏览器情况不同，一般在2-30分钟）。</li>
+<li>从操作系统缓存中查询。如果浏览器中没有包含想要的缓存记录，那浏览器就会发起操作系统请求，继续查询操作系统缓存</li>
+<li>从路由器中查询DNS缓存。请求持续发送到你的路由，它通常会有自己的DNS缓存。</li>
+<li>从ISP中查询DNS缓存。下一个被查询地方是ISP缓存DNS的服务器。</li>
+<li>域名服务器递归查询。首先从root域名服务器中查询如.com域名服务器，然后逐步向前查询，.com顶级域名服务器到Facebook的域名服务器。一般来说，.com级别的都已经在缓存中了，所以一般不会进行对root域名服务器的查询。下面给出一张递归查询的图。</li>
+</ol>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><h4 id="什么是DNS？"><a href="#什么是DNS？" class="headerlink" title="什么是DNS？"></a>什么是DNS？</h4><p>DNS（Domain Name System，域名系统），因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。通过主机名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。</p>
+<h4 id="DNS查询的两种方式：递归查询和迭代查询"><a href="#DNS查询的两种方式：递归查询和迭代查询" class="headerlink" title="DNS查询的两种方式：递归查询和迭代查询"></a>DNS查询的两种方式：递归查询和迭代查询</h4><h5 id="1、递归解析"><a href="#1、递归解析" class="headerlink" title="1、递归解析"></a>1、递归解析</h5><p>当局部DNS服务器自己不能回答客户机的DNS查询时，它就需要向其他DNS服务器进行查询。<br>此时有两种方式，如图所示的是递归方式。<br>局部DNS服务器自己负责向其他DNS服务器进行查询，一般是先向该域名的根域服务器查询，再由根域名服务器一级级向下查询。<br>最后得到的查询结果返回给局部DNS服务器，再由局部DNS服务器返回给客户端。</p>
+<p><img src="2-2.png" alt="2-2"></p>
+<h5 id="2、迭代解析"><a href="#2、迭代解析" class="headerlink" title="2、迭代解析"></a>2、迭代解析</h5><p>当局部DNS服务器自己不能回答客户机的DNS查询时，也可以通过迭代查询的方式进行解析，如图所示。<br>局部DNS服务器不是自己向其他DNS服务器进行查询，而是把能解析该域名的其他DNS服务器的IP地址返回给客户端DNS程序，客户端DNS程序再继续向这些DNS服务器进行查询，直到得到查询结果为止。<br>也就是说，迭代解析只是帮你找到相关的服务器而已，而不会帮你去查。<br>比如说：baidu.com的服务器ip地址在192.168.4.5这里，你自己去查吧，本人比较忙，只能帮你到这里了。</p>
+<p><img src="2-3.png" alt="2-3"></p>
+<h4 id="DNS域名称空间的组织方式"><a href="#DNS域名称空间的组织方式" class="headerlink" title="DNS域名称空间的组织方式"></a>DNS域名称空间的组织方式</h4><p>我们在前面有说到根DNS服务器，域DNS服务器，这些都是DNS域名称空间的组织方式。<br>按其功能命名空间中用来描述 DNS 域名称的五个类别的介绍详见下表中，以及与每个名称类型的示例:</p>
+<p><img src="2-4.jpg" alt="2-4"></p>
+<h2 id="3-浏览器发送HTTP请求到web服务器"><a href="#3-浏览器发送HTTP请求到web服务器" class="headerlink" title="3. 浏览器发送HTTP请求到web服务器"></a>3. 浏览器发送HTTP请求到web服务器</h2><p>向 <code>http://facebook.com/</code> 发出GET请求</p>
+<h3 id="HTTP请求报文"><a href="#HTTP请求报文" class="headerlink" title="HTTP请求报文"></a>HTTP请求报文</h3><p>在请求中，HTTP报文首部由方法、URI、HTTP版本、HTTP首部字段等构成。</p>
+<p><img src="3-1.png" alt="3-1"></p>
+<h3 id="确保可靠性的TCP协议"><a href="#确保可靠性的TCP协议" class="headerlink" title="确保可靠性的TCP协议"></a>确保可靠性的TCP协议</h3><p><img src="3-2.png" alt="3-2"></p>
+<h4 id="扩展-1"><a href="#扩展-1" class="headerlink" title="扩展"></a>扩展</h4><h5 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h5><ul>
+<li><p>第一次握手：<br>  客户端A将标志位SYN置为1,随机产生一个值为seq=J（J的取值范围为=1234567）的数据包到服务器，客户端A进入SYN_SENT状态，等待服务端B确认；</p>
+</li>
+<li><p>第二次握手：<br>  服务端B收到数据包后由标志位SYN=1知道客户端A请求建立连接，服务端B将标志位SYN和ACK都置为1，ack=J+1，随机产生一个值seq=K，并将该数据包发送给客户端A以确认连接请求，服务端B进入SYN_RCVD状态。</p>
+</li>
+<li><p>第三次握手：<br>  客户端A收到确认后，检查ack是否为J+1，ACK是否为1，如果正确则将标志位ACK置为1，ack=K+1，并将该数据包发送给服务端B，服务端B检查ack是否为K+1，ACK是否为1，如果正确则连接建立成功，客户端A和服务端B进入ESTABLISHED状态，完成三次握手，随后客户端A与服务端B之间可以开始传输数据了。</p>
+</li>
+</ul>
+<p><img src="3-2-1.png" alt="3-2-1"></p>
+<h5 id="为什需要三次握手？"><a href="#为什需要三次握手？" class="headerlink" title="为什需要三次握手？"></a>为什需要三次握手？</h5><p>《计算机网络》第四版中讲“三次握手”的目的是“为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误”</p>
+<p>书中的例子是这样的，“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。<br>本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。</p>
+<p>假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。</p>
+<p>例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”。主要目的防止server端一直等待，浪费资源。</p>
+<h5 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h5><ul>
+<li><p>第一次挥手：<br>  Client发送一个FIN，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态。</p>
+</li>
+<li><p>第二次挥手：<br>  Server收到FIN后，发送一个ACK给Client，确认序号为收到序号+1（与SYN相同，一个FIN占用一个序号），Server进入CLOSE_WAIT状态。</p>
+</li>
+<li><p>第三次挥手：<br>  Server发送一个FIN，用来关闭Server到Client的数据传送，Server进入LAST_ACK状态。</p>
+</li>
+<li><p>第四次挥手：<br>  Client收到FIN后，Client进入TIME_WAIT状态，接着发送一个ACK给Server，确认序号为收到序号+1，Server进入CLOSED状态，完成四次挥手。</p>
+</li>
+</ul>
+<p><img src="3-2-2.png" alt="3-2-2"></p>
+<h5 id="为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"><a href="#为什么建立连接是三次握手，而关闭连接却是四次挥手呢？" class="headerlink" title="为什么建立连接是三次握手，而关闭连接却是四次挥手呢？"></a>为什么建立连接是三次握手，而关闭连接却是四次挥手呢？</h5><p>这是因为服务端在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。</p>
+<p>而关闭连接时，当收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，己方也未必全部数据都发送给对方了，所以己方可以立即close，也可以发送一些数据给对方后，再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送。</p>
+<h5 id="什么是反向代理？"><a href="#什么是反向代理？" class="headerlink" title="什么是反向代理？"></a>什么是反向代理？</h5><p>客户端本来可以直接通过HTTP协议访问某网站应用服务器，网站管理员可以在中间加上一个Nginx，客户端请求Nginx，Nginx请求应用服务器，然后将结果返回给客户端，此时Nginx就是反向代理服务器。</p>
+<p><img src="3-2-3.jpg" alt="3-2-3"></p>
+<h3 id="负责传输的IP协议"><a href="#负责传输的IP协议" class="headerlink" title="负责传输的IP协议"></a>负责传输的IP协议</h3><ul>
+<li>IP间的通信依赖MAC地址</li>
+<li>ARP协议：(Address Resolution Protocol)用以解析地址的协议，根据通信方的IP地址就可以反查出对应的MAC地址</li>
+</ul>
+<p><img src="3-3.png" alt="3-3"></p>
+<h2 id="4-Facebook服务器返回一个永久重定向响应"><a href="#4-Facebook服务器返回一个永久重定向响应" class="headerlink" title="4. Facebook服务器返回一个永久重定向响应"></a>4. Facebook服务器返回一个永久重定向响应</h2><p>服务器会发送一个301永久重定向响应来告诉浏览器访问 <code>http://www.facebook.com/</code> 而不是 <code>http://facebook.com/</code>。</p>
+<p>为什么服务器坚持重定向而不是直接给予浏览器用户需要的结果，这有很多有意思原因:</p>
+<ul>
+<li>一个原因是搜索引擎排名，如果有两个URLs指向同一个页面，比如 <code>http://www.igoro.com/</code> 和 <code>http://igoro.com/</code> ,搜索引擎会认为这是两个不同的网站，结果他们两个每个都有一部分访问量，但是也只能拥有更低的搜索引擎排名。如果使用了301定位，搜索引擎将会识别重定向，进而将同一来源的多个链接算作一个。</li>
+<li>另一个原因是，同样的内容多个URLs还不利于缓存，同样的内容拥有多个名字，潜在造成缓存浪费。</li>
+</ul>
+<h3 id="扩展-2"><a href="#扩展-2" class="headerlink" title="扩展"></a>扩展</h3><h4 id="301和302的区别："><a href="#301和302的区别：" class="headerlink" title="301和302的区别："></a>301和302的区别：</h4><p>301和302状态码都表示重定向，就是说浏览器在拿到服务器返回的这个状态码后会自动跳转到一个新的URL地址，这个地址可以从响应的Location首部中获取（用户看到的效果就是他输入的地址A瞬间变成了另一个地址B）——这是它们的共同点。</p>
+<p>他们的不同在于。301表示旧地址A的资源已经被永久地移除了（这个资源不可访问了），搜索引擎在抓取新内容的同时也将旧的网址换为重定向之后的网址；</p>
+<p>302表示旧地址A的资源还在（仍然可以访问），这个重定向只是临时地从旧地址A跳转到地址B，搜索引擎会抓取新的内容而保存旧的网址。 SEO 302好于301</p>
+<h4 id="重定向原因："><a href="#重定向原因：" class="headerlink" title="重定向原因："></a>重定向原因：</h4><ul>
+<li>网站调整（如改变网页目录结构）；</li>
+<li>网页被移到一个新地址；</li>
+<li>网页扩展名改变(如应用需要把.php改成.Html或.shtml)。<br>  这种情况下，如果不做重定向，则用户收藏夹或搜索引擎数据库中旧地址只能让访问客户得到一个404页面错误信息，访问流量白白丧失；再者某些注册了多个域名的网站，也需要通过重定向让访问这些域名的用户自动跳转到主站点等。</li>
+</ul>
+<h4 id="什么时候进行301或者302跳转呢？"><a href="#什么时候进行301或者302跳转呢？" class="headerlink" title="什么时候进行301或者302跳转呢？"></a>什么时候进行301或者302跳转呢？</h4><p>当一个网站或者网页24—48小时内临时移动到一个新的位置，这时候就要进行302跳转，而使用301跳转的场景就是之前的网站因为某种原因需要移除掉，然后要到新的地址访问，是永久性的。</p>
+<p>清晰明确而言：使用301跳转的大概场景如下：</p>
+<p>1、 域名到期不想续费（或者发现了更适合网站的域名），想换个域名。<br>2、 在搜索引擎的搜索结果中出现了不带www的域名，而带www的域名却没有收录，这个时候可以用301重定向来告诉搜索引擎我们目标的域名是哪一个。<br>3、 空间服务器不稳定，换空间的时候。</p>
+<h2 id="5-浏览器会跟踪重定向地址"><a href="#5-浏览器会跟踪重定向地址" class="headerlink" title="5. 浏览器会跟踪重定向地址"></a>5. 浏览器会跟踪重定向地址</h2><p>浏览器知道了 <code>http://www.facebook.com/</code> 是真正应该访问的URL，所以就发送了另外一个GET请求。</p>
+<h2 id="6-服务器处理请求"><a href="#6-服务器处理请求" class="headerlink" title="6. 服务器处理请求"></a>6. 服务器处理请求</h2><p>服务器会接收这个GET请求，并且返回一个响应结果</p>
+<h3 id="怎么存储数据是每个动态网站都会面临的有趣难题"><a href="#怎么存储数据是每个动态网站都会面临的有趣难题" class="headerlink" title="怎么存储数据是每个动态网站都会面临的有趣难题"></a>怎么存储数据是每个动态网站都会面临的有趣难题</h3><p>小网站会经常有一个SQL数据库来存储他们的数据，但是网站存储数据量过大或者流量过大后就必须将数据库分布在多台机器，解决的方法有很多种</p>
+<p>包括sharding(在主键基础上划分表到多个数据库中)，复制和使用简化的弱语义一致性数据库</p>
+<h3 id="推迟一些任务到批处理作业是廉价保持数据更新的的一种技术。"><a href="#推迟一些任务到批处理作业是廉价保持数据更新的的一种技术。" class="headerlink" title="推迟一些任务到批处理作业是廉价保持数据更新的的一种技术。"></a>推迟一些任务到批处理作业是廉价保持数据更新的的一种技术。</h3><p>例如，Facebook必须尽快更新新闻供应，但数据支持的“你可能认识的人”功能可能只需要每晚进行更新（作者猜测是这样）。批处理作业的更新导致存在一些旧的相对不重要的数据，但是使数据更新更快更简单。</p>
+<h2 id="7-服务器返回一个HTML响应"><a href="#7-服务器返回一个HTML响应" class="headerlink" title="7.服务器返回一个HTML响应"></a>7.服务器返回一个HTML响应</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Cache-Control: private, no-store, no-cache, must-revalidate, post-check=0,</span><br><span class="line">    pre-check=0</span><br><span class="line">Expires: Sat, 01 Jan 2000 00:00:00 GMT</span><br><span class="line">P3P: CP=&quot;DSP LAW&quot;</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br><span class="line">X-Cnection: close</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Date: Fri, 12 Feb 2010 09:05:55 GMT</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>整个完整的响应是36KB，其中大部分处理后由blob类型传送<br>内容编码头部告诉浏览器响应体使用了gzip压缩算法。在解析blob后，你就会看到你期望的HTML了。</p>
+<h2 id="8-浏览器开始渲染HTML"><a href="#8-浏览器开始渲染HTML" class="headerlink" title="8. 浏览器开始渲染HTML"></a>8. 浏览器开始渲染HTML</h2><p>在浏览器接收完整HTML文件前，浏览器就开始渲染页面了。</p>
+<h2 id="9-浏览器发送嵌入在HTML中的对象的请求"><a href="#9-浏览器发送嵌入在HTML中的对象的请求" class="headerlink" title="9. 浏览器发送嵌入在HTML中的对象的请求"></a>9. 浏览器发送嵌入在HTML中的对象的请求</h2><p>随着浏览器渲染HTML，浏览器会注意到有些标签需要请求其他URLs的资源，浏览器将会发送一个GET请求来重新获取每个文件 。</p>
+<h2 id="10-浏览器发送异步请求"><a href="#10-浏览器发送异步请求" class="headerlink" title="10. 浏览器发送异步请求"></a>10. 浏览器发送异步请求</h2><p>在web2.0时代，即使在页面渲染后客户端还是持续与服务器端通信。</p>
+<p>例如，当你的朋友上线或下线时，Facebook聊天功能将会持续更新你已经登录的朋友列表。为了更新这个列表，你浏览器上运行的JS将会发送异步请求到服务器，异步请求是发送给特殊URL的GET或POST请求。在Facebook的例子中，客户端会发送一个POST请求到 <code>http://www.facebook.com/ajax/chat/buddy_list.php</code> ，获取你在线的朋友列表</p>
+<p>这个模式被称为AJAX，是“Asynchronous JavaScript And XML”,的缩写，虽然不太清楚为什么服务器必须将响应格式化为xml。</p>
+<h2 id="相关阅读："><a href="#相关阅读：" class="headerlink" title="相关阅读："></a>相关阅读：</h2><p><a href="http://blog.csdn.net/czp11210/article/details/25193791" target="_blank" rel="noopener">当你访问淘宝的时候，发生了什么？</a></p>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/12/10/hello-world/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/cwsidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/cwavatar.png" alt="ChauncyWu's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        chauncywu@foxmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: chauncywu@foxmail.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/github/">github<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">2</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/ChauncyWu" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+        <a href="https://www.zhihu.com/people/chauncywu/activities" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-zhihu">
+                <span class="visuallyhidden">Zhihu</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>ChauncyWu's Blog
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+            <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        </body>
+    
+</html>
