@@ -12,7 +12,7 @@
     
     <title>
         
-            标签: URL | 
+            移动端Web自动播放音乐问题 | 
         
         ChauncyWu&#39;s Blog
     </title>
@@ -38,7 +38,7 @@
     <meta name="theme-color" content="#0092f3">
     <meta name="author" content="ChauncyWu">
     <meta name="description" itemprop="description" content="ChauncyWu">
-    <meta name="keywords" content="">
+    <meta name="keywords" content=",音乐,移动端">
 
     <!-- Site Verification -->
     
@@ -67,15 +67,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://chauncywu.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: URL | ChauncyWu&#39;s Blog">
+    <meta property="og:title" content="移动端Web自动播放音乐问题 | ChauncyWu&#39;s Blog">
     <meta property="og:image" content="/img/cwicon.png" />
     <meta property="og:description" content="ChauncyWu">
-    
+    <meta property="og:article:tag" content="音乐"> <meta property="og:article:tag" content="移动端"> 
 
+    
+        <meta property="article:published_time" content="3月 01, 2018" />
+        <meta property="article:modified_time" content="3月 01, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="标签: URL | ChauncyWu&#39;s Blog">
+    <meta name="twitter:title" content="移动端Web自动播放音乐问题 | ChauncyWu&#39;s Blog">
     <meta name="twitter:description" content="ChauncyWu">
     <meta name="twitter:image" content="/img/cwicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -83,13 +86,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://chauncywu.com/tags/URL/index.html" />
+        <link rel="canonical" href="http://chauncywu.com/2018/03/01/移动端Web自动播放音乐问题/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "ChauncyWu&#39;s Blog",
+        "logo": "/img/cwicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "ChauncyWu",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/cwicon.jpg"
+        },
+        "description": "尚有长路待行，在安睡之前。"
+    },
+    "headline": "移动端Web自动播放音乐问题",
+    "url": "http://chauncywu.com/2018/03/01/移动端Web自动播放音乐问题/index.html",
+    "datePublished": "3月 01, 2018",
+    "dateModified": "3月 01, 2018",
+    "description": "ChauncyWu",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://chauncywu.com"
+    }
+}
+</script>
 
 
     
@@ -273,94 +306,223 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于移动端Web音乐自动播放的问题，可以分为三种："><span class="post-toc-number">1.</span> <span class="post-toc-text"><a href="#&#x5173;&#x4E8E;&#x79FB;&#x52A8;&#x7AEF;Web&#x97F3;&#x4E50;&#x81EA;&#x52A8;&#x64AD;&#x653E;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x79CD;&#xFF1A;" class="headerlink" title="&#x5173;&#x4E8E;&#x79FB;&#x52A8;&#x7AEF;Web&#x97F3;&#x4E50;&#x81EA;&#x52A8;&#x64AD;&#x653E;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x79CD;&#xFF1A;"></a>&#x5173;&#x4E8E;&#x79FB;&#x52A8;&#x7AEF;Web&#x97F3;&#x4E50;&#x81EA;&#x52A8;&#x64AD;&#x653E;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x79CD;&#xFF1A;</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原因"><span class="post-toc-number">2.</span> <span class="post-toc-text"><a href="#&#x539F;&#x56E0;" class="headerlink" title="&#x539F;&#x56E0;"></a>&#x539F;&#x56E0;</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方案"><span class="post-toc-number">3.</span> <span class="post-toc-text"><a href="#&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x89E3;&#x51B3;&#x65B9;&#x6848;</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="http://ww3.sinaimg.cn/large/0060lm7Tly1fmebqpovkug31hc0u0b2d.gif">
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://s1.ax2x.com/2018/03/01/cDLoA.jpg)">
+    
+            <p class="article-headline-p">
+                移动端Web自动播放音乐问题
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/cwavatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>ChauncyWu</strong>
+        <span>3月 01, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
     
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/12/12/从输入URL到页面渲染完成/">从输入URL到页面渲染完成</a></p>
-    </div>
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/移动端/">移动端</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/音乐/">音乐</a>
+    </ul>
+    
 
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
         
-            
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
         
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/12/12/从输入URL到页面渲染完成/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/cwavatar.png" width="44px" height="44px" alt="ChauncyWu's avatar">
-            </div>
-            <div>
-                <strong>ChauncyWu</strong>
-                <span>12月 12, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/前端/">前端</a>
-            </span>
+    
 
-            
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=移动端Web自动播放音乐问题&url=http://chauncywu.com/2018/03/01/移动端Web自动播放音乐问题/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
 
-            
+    <!-- Share Twitter -->
+    
 
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=ChauncyWu&#39;s Blog&title=移动端Web自动播放音乐问题&summary=ChauncyWu&pics=http://chauncywu.com/img/cwicon.png&url=http://chauncywu.com/2018/03/01/移动端Web自动播放音乐问题/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
 </div>
 
-            
-            
-        
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
+        <h2 id="关于移动端Web音乐自动播放的问题，可以分为三种："><a href="#关于移动端Web音乐自动播放的问题，可以分为三种：" class="headerlink" title="关于移动端Web音乐自动播放的问题，可以分为三种："></a>关于移动端Web音乐自动播放的问题，可以分为三种：</h2><ol>
+<li>支持audio的autoplay，大部分安卓机子的自带浏览器和微信，大部分的IOS微信（无需特殊解决）</li>
+<li>不支持audio的autoplay，部分的IOS微信 <a href="http://www.cnblogs.com/qianduanjingying/p/5818959.html" target="_blank" rel="noopener">（解决ios下的微信打开的页面背景音乐无法自动播放）</a></li>
+<li>不支持audio的autoplay，部分的安卓机子的自带浏览器（比如小米）和ios safari（只能做用户触屏时触发播放，本文介绍）</li>
+</ol>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ol>
+<li>微信的js api是建立在微信内置浏览器的私有对象WeixinJSBridge上，在微信中打开页面的话会初始化这个对象，当这个对象准备好的时候，会抛出WeixinJSBridgeReady这个事件，我们在这个事件的回调中可以播放音乐。</li>
+<li>以前的IOS是支持音频自动播放的，但是在IOS4.2.1版本之后，苹果不支持自动播放，为了用户着想，禁止了autoplay和JS “onload” 加载播放，在此我们监听用户触屏时触发。更多资料见官方文档<a href="https://developer.apple.com/safari/resources" target="_blank" rel="noopener">Safari Developer Library</a></li>
+</ol>
+<blockquote>
+<p>User Control of Downloads Over Cellular Networks In Safari on iOS (for all devices, including iPad), where the user may be on a cellular network and be charged per data unit, preload and autoplay are disabled. No data is loaded until the user initiates it.</p>
+<p>This means the JavaScript play() and load() methods are also inactiveuntil the user initiates playback, unless the play() or load() method is triggered by user action. In other words, a user-initiated Play button works, but an onLoad=”play()” event does not.</p>
+</blockquote>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;audio src=&quot;bg.mp3&quot; id=&quot;CW&quot; autoplay preload&gt;&lt;/audio&gt;</span><br><span class="line"></span><br><span class="line">jQuery(document).ready(function($) &#123;</span><br><span class="line">    audioAutoPlay(&apos;CW&apos;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">function audioAutoPlay(id)&#123;</span><br><span class="line"></span><br><span class="line">    var audio = document.getElementById(id),</span><br><span class="line">        play = function()&#123;</span><br><span class="line">            audio.play();</span><br><span class="line">            document.removeEventListener(&quot;touchstart&quot;,play, false);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    audio.play();</span><br><span class="line">    </span><br><span class="line">    //兼容微信</span><br><span class="line">    document.addEventListener(&quot;WeixinJSBridgeReady&quot;, function () &#123;</span><br><span class="line">        play();</span><br><span class="line">    &#125;, false);</span><br><span class="line"></span><br><span class="line">    //兼容易信</span><br><span class="line">    document.addEventListener(&apos;YixinJSBridgeReady&apos;, function() &#123;</span><br><span class="line">        play();</span><br><span class="line">    &#125;, false);</span><br><span class="line"></span><br><span class="line">    document.addEventListener(&quot;touchstart&quot;,play, false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
-</script>
 
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/12/12/从输入URL到页面渲染完成/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -544,6 +706,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
